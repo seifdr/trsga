@@ -7,6 +7,7 @@
 </footer>
 </div>
 <?php wp_footer(); ?>
+</div> <!-- close container -->
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/theme.js"></script>
 </body>
 </html>

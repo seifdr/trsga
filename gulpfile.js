@@ -4,6 +4,7 @@ var jshint		= require('gulp-jshint');
 var jshint 		= require('gulp-jshint');
 var concat		= require('gulp-concat');
 var imagemin	= require('gulp-imagemin');
+var rename 		= require('gulp-rename');
 //gulp-plumber to handle errors in our tasks
 var plumber 	= require('gulp-plumber');
 //gulp-notify to show a nice growl life notifications upon error
@@ -50,10 +51,15 @@ var plumberErrorHandler = { errorHandler: notify.onError({
 //compile sass
 gulp.task('sass', function(){
 
-	gulp.src('./css/src/*.scss')
+	var sourceSass = [
+		'./css/src/bootstrap-4.0.0-alpha.6/**/*.scss',
+	];
+
+	gulp.src( sourceSass )
 		.pipe( plumber( plumberErrorHandler ) )
 		.pipe( sass() )
-		.pipe( gulp.dest('./css') )
+		.pipe( rename('main.css') )
+		.pipe( gulp.dest('css') )
 		.pipe( reload({stream:true}) );
 });
 
@@ -61,7 +67,13 @@ gulp.task('sass', function(){
 //minify and combine js
 gulp.task('js', function(){
 
-	gulp.src('js/src/*.js')
+	var needScripts = [
+		// 'js/src/jquery/*.js',
+		'js/src/bootstrap-4.0.0-alpha6/*.js', 
+		'js/src/*.js',
+	];
+	// gulp.src('js/src/**/*.js')
+	gulp.src( needScripts )
 		.pipe( plumber( plumberErrorHandler ) )
 		.pipe( jshint() )
 			.pipe(jshint.reporter('fail'))
@@ -103,9 +115,9 @@ gulp.task('browser-sync', function() {
 //setting up a watch for automating tasks
 gulp.task('watch', function(){
 
-	gulp.watch('css/src/*.scss', ['sass'] );
+	gulp.watch('css/src/**/*.scss', ['sass'] );
 
-	gulp.watch('js/src/*.js', ['js'] );
+	gulp.watch('js/src/**/*.js', ['js'] );
 
 	gulp.watch( 'img/src/*.{png, jpg, gif}', ['img'] );
 
