@@ -1,18 +1,26 @@
 <?php
-add_action( 'after_setup_theme', 'blankslate_setup' );
-function blankslate_setup()
-{
-load_theme_textdomain( 'blankslate', get_template_directory() . '/languages' );
-add_theme_support( 'title-tag' );
-add_theme_support( 'automatic-feed-links' );
-add_theme_support( 'post-thumbnails' );
-global $content_width;
-if ( ! isset( $content_width ) ) $content_width = 640;
-register_nav_menus(
-array( 'main-menu' => __( 'Main Menu', 'blankslate' ) )
-);
+
+function register_aditional_nav_menus() {
+  register_nav_menu('footer-menu',__( 'Footer Menu' ));
 }
+add_action( 'init', 'register_aditional_nav_menus' );
+
+add_action( 'after_setup_theme', 'blankslate_setup' );
+
+function blankslate_setup()
+    {
+    load_theme_textdomain( 'blankslate', get_template_directory() . '/languages' );
+    add_theme_support( 'title-tag' );
+    add_theme_support( 'automatic-feed-links' );
+    add_theme_support( 'post-thumbnails' );
+    global $content_width;
+    if ( ! isset( $content_width ) ) $content_width = 640;
+    register_nav_menus(
+    array( 'main-menu' => __( 'Main Menu', 'blankslate' ) )
+    );
+    }
 add_action( 'wp_enqueue_scripts', 'blankslate_load_scripts' );
+
 function blankslate_load_scripts()
 {
 wp_enqueue_script( 'jquery' );

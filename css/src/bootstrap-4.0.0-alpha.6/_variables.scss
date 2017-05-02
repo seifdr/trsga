@@ -103,6 +103,11 @@ $teal:   #5bc0de !default;
 $pink:   #ff5b77 !default;
 $purple: #613d7c !default;
 
+$trsLightGreen: #A9B7AB;
+$trsDarkGreen:  #046546;
+$trsGold:       #99884e;
+$trsGrey:       #565757;
+
 // Create grayscale
 $gray-dark:                 #292b2c !default;
 $gray:                      #464a4c !default;
@@ -111,8 +116,15 @@ $gray-lighter:              #eceeef !default;
 $gray-lightest:             #f7f7f9 !default;
 
 // Reassign color vars to semantic color scheme
-$brand-primary:             $blue !default;
-$brand-success:             $green !default;
+// $brand-primary:             $blue !default;
+// $brand-success:             $green !default;
+// $brand-info:                $teal !default;
+// $brand-warning:             $orange !default;
+// $brand-danger:              $red !default;
+// $brand-inverse:             $gray-dark !default;
+
+$brand-primary:             $trsDarkGreen !default;
+$brand-success:             $trsLightGreen !default;
 $brand-info:                $teal !default;
 $brand-warning:             $orange !default;
 $brand-danger:              $red !default;
@@ -221,7 +233,8 @@ $container-max-widths: (
   sm: 540px,
   md: 720px,
   lg: 960px,
-  xl: 1140px
+  // xl: 1140px
+  xl: 1030px
 ) !default;
 @include _assert-ascending($container-max-widths, "$container-max-widths");
 

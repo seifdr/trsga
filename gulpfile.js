@@ -52,7 +52,7 @@ var plumberErrorHandler = { errorHandler: notify.onError({
 gulp.task('sass', function(){
 
 	var sourceSass = [
-		'./css/src/bootstrap-4.0.0-alpha.6/**/*.scss',
+		'./css/src/main.scss',
 	];
 
 	gulp.src( sourceSass )
