@@ -1,8 +1,11 @@
 var gulp 		= require('gulp');
 var sass 		= require('gulp-sass');
+var compass		= require('gulp-compass');
+var path 		= require('path');
 var jshint		= require('gulp-jshint');
 var jshint 		= require('gulp-jshint');
 var concat		= require('gulp-concat');
+var babel 		= require('gulp-babel');
 var imagemin	= require('gulp-imagemin');
 var rename 		= require('gulp-rename');
 //gulp-plumber to handle errors in our tasks
@@ -52,12 +55,18 @@ var plumberErrorHandler = { errorHandler: notify.onError({
 gulp.task('sass', function(){
 
 	var sourceSass = [
-		'./css/src/main.scss',
+		'./sass/custom/main.scss',
 	];
 
 	gulp.src( sourceSass )
 		.pipe( plumber( plumberErrorHandler ) )
-		.pipe( sass() )
+		// .pipe( sass() )
+		.pipe( compass({
+			//project: path.join(__dirname, '/'),
+			css: 'css',
+			sass: 'sass/custom',
+			// image: 'images'
+		}) )
 		.pipe( rename('main.css') )
 		.pipe( gulp.dest('css') )
 		.pipe( reload({stream:true}) );
@@ -68,15 +77,18 @@ gulp.task('sass', function(){
 gulp.task('js', function(){
 
 	var needScripts = [
-		// 'js/src/jquery/*.js',
-		'js/src/bootstrap-4.0.0-alpha6/*.js', 
-		'js/src/*.js',
+		'js/src/jquery/*.js',
+		// 'js/src/tether/tether.min.js',
+		'js/src/bootstrap-4.0.0-alpha6/*.js'
 	];
 	// gulp.src('js/src/**/*.js')
 	gulp.src( needScripts )
 		.pipe( plumber( plumberErrorHandler ) )
 		.pipe( jshint() )
 			.pipe(jshint.reporter('fail'))
+			.pipe( babel( {
+           		presets: ['es2015']
+        	}))
 			.pipe( concat('theme.js') )
 			.pipe( gulp.dest('js') )
 			.pipe( reload({stream:true}) );
@@ -115,7 +127,7 @@ gulp.task('browser-sync', function() {
 //setting up a watch for automating tasks
 gulp.task('watch', function(){
 
-	gulp.watch('css/src/**/*.scss', ['sass'] );
+	gulp.watch('sass/**/*.scss', ['sass'] );
 
 	gulp.watch('js/src/**/*.js', ['js'] );
 
